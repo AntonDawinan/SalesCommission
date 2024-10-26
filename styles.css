@@ -1,8 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #e9ecef; /* Light grey background */
+    background: linear-gradient(135deg, #bb0a3f, #3063f0); /* mixed color background */
     margin: 0;
     padding: 0;
+    height: 100vh;
 }
 
 .container {
@@ -11,7 +12,7 @@ body {
     padding: 20px;
     background: #ffffff; /* White background for the form */
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Softer shadow */
+    box-shadow: 0 4px 20px rgba(2, 2, 2, 2); /* Softer shadow */
 }
 
 h1 {
