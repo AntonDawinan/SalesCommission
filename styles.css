@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e9ecef; /* Light grey background */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff; /* White background for the form */
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Softer shadow */
+}
+
+h1 {
+    text-align: center;
+    color: #007bff; /* Bootstrap primary color (blue) */
+}
+
+label {
+    margin: 10px 0 5px;
+    display: block;
+    color: #343a40; /* Dark grey for labels */
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da; /* Light grey border */
+    border-radius: 4px;
+    transition: border-color 0.3s; /* Transition effect for focus */
+}
+
+input:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(90deg, #28a745, #20c997); /* Green gradient background */
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+button:hover {
+    background: linear-gradient(90deg, #218838, #1e7e34); /* Darker green gradient on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+    color: #343a40; /* Dark grey for result text */
+    font-weight: bold; /* Bold result text */
+}
