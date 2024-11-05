@@ -1,31 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"> <!-- Character encoding for the document -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design -->
-    <title>Sales Commission Calculator</title> <!-- Page title -->
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Commission Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
 <body>
-    <div class="container"> <!-- Main container for the calculator -->
-        <h1>Sales Commission Calculator</h1> <!-- Heading -->
-        <form id="commission-form"> <!-- Form for user inputs -->
+    <div class="container">
+        <h1>Sales Commission Calculator</h1>
+        <form id="commission-form">
             <label for="quota">Sales Amount:</label>
-            <input type="number" id="quota" required> <!-- Input for sales amount -->
-            
+            <input type="number" id="quota" required>
+
             <label for="rate1">Commission Rate for Tier 1 (0 - 10,000):</label>
-            <input type="number" id="rate1" step="0.01" required> <!-- Input for Tier 1 commission rate -->
+            <input type="number" id="rate1" step="0.01" required>
 
             <label for="rate2">Commission Rate for Tier 2 (10,001 - 20,000):</label>
-            <input type="number" id="rate2" step="0.01" required> <!-- Input for Tier 2 commission rate -->
+            <input type="number" id="rate2" step="0.01" required>
 
             <label for="rate3">Commission Rate for Tier 3 (20,001 and above):</label>
-            <input type="number" id="rate3" step="0.01" required> <!-- Input for Tier 3 commission rate -->
+            <input type="number" id="rate3" step="0.01" required>
 
-            <button type="submit">Calculate Commission</button> <!-- Button to submit the form -->
+            <!-- Button without JavaScript onclick -->
+            <button id="calculate-btn" type="button">Calculate Commission</button>
         </form>
-        <div id="result"></div> <!-- Area to display the result -->
+        <div id="result"></div>
     </div>
-    <script src="script.js"></script> <!-- Link to the JavaScript file -->
+
+    <!-- PyScript block for commission calculation -->
+    <py-script>
+        from pyscript import Element
+        from pyodide.ffi import create_proxy
+        from js import document
+
+        def calculate_commission(event):
+            quota = float(Element("quota").element.value)
+            rate1 = float(Element("rate1").element.value)
+            rate2 = float(Element("rate2").element.value)
+            rate3 = float(Element("rate3").element.value)
+
+            commission = 0
+
+            if quota <= 10000:
+                commission = quota * (rate1 / 100)
+            elif quota <= 20000:
+                commission = (10000 * (rate1 / 100)) + ((quota - 10000) * (rate2 / 100))
+            else:
+                commission = (10000 * (rate1 / 100)) + (10000 * (rate2 / 100)) + ((quota - 20000) * (rate3 / 100))
+
+            Element("result").element.innerText = f"Total Commission: ${commission:.2f}"
+
+        # Create a persistent proxy for the Python function
+        calculate_commission_proxy = create_proxy(calculate_commission)
+        document.getElementById("calculate-btn").addEventListener("click", calculate_commission_proxy)
+    </py-script>
 </body>
 </html>
